@@ -1,16 +1,16 @@
 var appControllers=angular.module('app.controllers');
 
-appControllers.controller('EditController',function(TagService,$scope,BookmarkService,Helpers,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
+appControllers.controller('EditController',function(TagService,$scope,QuestionService,Helpers,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
 
-    $scope.editBookmark={};         $scope.editTags=[];
+    $scope.editQuestion={};         $scope.editTags=[];
     $scope.allTags=[];              $scope.editTagText={input:null};
-    $scope.editBookmarkMessage=null;
+    $scope.editQuestionMessage=null;
 
-    BookmarkService.getBookmark($stateParams.id)
+    QuestionService.getQuestion($stateParams.id)
     .then(function(response){
-       $scope.editBookmark=response.data;
-       $scope.editBookmark.inputTags=response.data.tags.split(',').sort();
-       if($scope.editBookmark.inputTags.length ==8){
+       $scope.editQuestion=response.data;
+       $scope.editQuestion.inputTags=response.data.tags.split(',').sort();
+       if($scope.editQuestion.inputTags.length ==8){
          $scope.showEditTagField=false;
        }else{
          $scope.showEditTagField=true;
@@ -22,7 +22,7 @@ appControllers.controller('EditController',function(TagService,$scope,BookmarkSe
       TagService.getTags()
       .then(function(response){
           $scope.allTags=response.data.map(function(element){return element.tag;}).sort();
-          $scope.editTags=getSuggestionTags($scope.allTags,$scope.editBookmark.inputTags);
+          $scope.editTags=getSuggestionTags($scope.allTags,$scope.editQuestion.inputTags);
           $scope.editTags.sort();
       });
     }
@@ -30,39 +30,40 @@ appControllers.controller('EditController',function(TagService,$scope,BookmarkSe
     $scope.loadTags();
 
     $scope.removeEditTag=function(tag){
-      $scope.editBookmark.inputTags.splice($scope.editBookmark.inputTags.indexOf(tag),1);
+      $scope.editQuestion.inputTags.splice($scope.editQuestion.inputTags.indexOf(tag),1);
       $scope.editTags.push(tag);   $scope.editTags.sort();
-      if($scope.editBookmark.inputTags.length < 8){$scope.showEditTagField=true;}
-      focus('editBookmarkTagsInput');
+      if($scope.editQuestion.inputTags.length < 8){$scope.showEditTagField=true;}
+      focus('editQuestionTagsInput');
     }
 
     $scope.selectEditTag=function(tag){
-      $scope.editBookmark.inputTags.push(tag);
+      $scope.editQuestion.inputTags.push(tag);
       $scope.editTags.splice($scope.editTags.indexOf(tag),1);  $scope.editTags.sort();
       $scope.editTagText.input=null;
-      if($scope.editBookmark.inputTags.length >= 8){$scope.showEditTagField=false;}
-      focus('editBookmarkTagsInput');
+      if($scope.editQuestion.inputTags.length >= 8){$scope.showEditTagField=false;}
+      focus('editQuestionTagsInput');
     }
 
-    $scope.updateBookmark=function(bookmark){
-      $scope.editBookmarkMessage=null;
-      console.log("Bookmark "+JSON.stringify(bookmark));
-       if(Helpers.undefined_or_empty(bookmark.link)){$scope.editBookmarkMessage='Nay! looks like you forgot bookmark link'; return;}
-       if(Helpers.undefined_or_empty(bookmark.description)){$scope.editBookmarkMessage='Please fill in bookmark description'; return;}
-       if(bookmark.inputTags.length < 1){$scope.editBookmarkMessage='Nay! we need at least one tag for bookmark'; return;}
-       var comma_separated_tags=Helpers.commaSeparatedTags(bookmark.inputTags);
-       var request_body={"link":bookmark.link,"description":bookmark.description,"tags":comma_separated_tags};
-       BookmarkService.updateBookmark($stateParams.id,request_body)
+    $scope.updateQuestion=function(question){
+      $scope.editQuestionMessage=null;
+      console.log("Question "+JSON.stringify(question));
+       if(Helpers.undefined_or_empty(question.title)){$scope.editQuestionMessage='Nay! looks like you forgot question title'; return;}
+       if(Helpers.undefined_or_empty(question.link)){$scope.editQuestionMessage='Nay! looks like you forgot question link'; return;}
+       if(Helpers.undefined_or_empty(question.description)){$scope.editQuestionMessage='Please fill in question description'; return;}
+       if(question.inputTags.length < 1){$scope.editQuestionMessage='Nay! we need at least one tag for question'; return;}
+       var comma_separated_tags=Helpers.commaSeparatedTags(question.inputTags);
+       var request_body={"title":question.title,"link":question.link,"description":question.description,"tags":comma_separated_tags};
+       QuestionService.updateQuestion($stateParams.id,request_body)
        .then(function(response){
-               toaster.pop('success','Bookmark updated successfully');
+               toaster.pop('success','Question updated successfully');
                setTimeout(function(){$state.go('list');},2000);
             },
-            function(error){ console.log("Error while updating bookmark"); }
+            function(error){ console.log("Error while updating question"); }
           );
     }
 
     $scope.$on('newTagAdded', function(event, data){
-      focus('editBookmarkTagsInput');
+      focus('editQuestionTagsInput');
       $scope.loadTags();
     });
 
@@ -78,8 +79,8 @@ appControllers.controller('EditController',function(TagService,$scope,BookmarkSe
 
 });
 
-function getSuggestionTags(allTags,bookmarkTags ) {
+function getSuggestionTags(allTags,questionTags ) {
   return allTags.filter(function (tag) {
-      return bookmarkTags.indexOf(tag) == -1;
+      return questionTags.indexOf(tag) == -1;
   });
 }

@@ -1,0 +1,38 @@
+<div class="modal" role="dialog" id="deleteQuestionModal" >
+
+   <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+           <button class="close" ng-click="deleteQuestionModal.hide()" type="button">x</button>
+           <h4 class="modal-title">Delete Question</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+             <span class="ubuntu-text bold-font">Are you sure you want to delete this question?</span>
+             <div class="delete-question">
+             <p><span class="delete-question-heading">Question Title</span><br/>
+               {{questionToDelete.title}}
+             </p>
+             <p><span class="delete-question-heading">Question Description</span><br/>
+               {{questionToDelete.description}}
+             </p>
+             <p><span class="delete-question-heading">Question Link </span><br/>
+               {{questionToDelete.link}}
+             </p>
+             <p><span class="delete-question-heading">Question Tags </span><br/>
+               {{questionToDelete.tags}}
+             </p>
+           </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+               <button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+               <button type="button" ng-click="deleteQuestion(questionToDelete._id);"
+                   class="btn btn-primary">Delete Question </button >
+        </div>
+
+      </div>
+    </div>
+
+</div>

@@ -7,7 +7,7 @@ var db=require('./models/db.js');
 
 var user=require('./routes/user.js');
 var tag=require('./routes/tag.js');
-var bookmark=require('./routes/bookmark.js');
+var question=require('./routes/question.js');
 
 var jwtSecret = 'kjwdjs65$ikksop0982shj';
 
@@ -29,11 +29,11 @@ app.post('/login',user.login,function(req,res){
 app.post('/tag',tag.createTag);
 app.get('/tags',tag.getTags);
 
-app.get('/bookmark/:id',bookmark.getBookmark);
-app.get('/bookmarks',bookmark.getBookmarks);
-app.post('/bookmark',bookmark.addBookmark);
-app.put('/bookmark/:id',bookmark.updateBookmark);
-app.delete('/bookmark/:id',bookmark.deleteBookmark);
+app.get('/question/:id',question.getQuestion);
+app.get('/questions',question.getQuestions);
+app.post('/question',question.addQuestion);
+app.put('/question/:id',question.updateQuestion);
+app.delete('/question/:id',question.deleteQuestion);
 
 var port = process.env.PORT || 8080;
 var server=app.listen(port,function(req,res){

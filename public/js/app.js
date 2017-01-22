@@ -44,7 +44,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('edit', {
             url: '/edit/:id',
-            templateUrl: 'templates/edit-bookmark.html',
+            templateUrl: 'templates/edit-question.html',
             controller:'EditController',
             authenticate: true
         });

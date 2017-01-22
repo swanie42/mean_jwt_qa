@@ -1,7 +1,7 @@
 {
   "name": "linko",
   "version": "1.0.0",
-  "description": "Dont lose your bookmarks again",
+  "description": "Dont lose your questions again",
   "main": "server.js",
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install"
@@ -16,6 +16,7 @@
     "express": "^4.14.0",
     "express-jwt": "^5.1.0",
     "jsonwebtoken": "^7.2.1",
+    "morgan": "^1.7.0",
     "mongoose": "^4.7.2"
   }
 }

@@ -102,7 +102,7 @@ a{
   border-radius: 4px
 }
 
-.bookmarkTag{
+.questionTag{
   border: 1px solid #E95420;
   padding: 3px 7px;
   vertical-align: middle;
@@ -168,11 +168,11 @@ a{
   font-weight:bold;
 }
 
-.delete-bookmark{
+.delete-question{
   margin-top:30px;
 }
 
-.delete-bookmark-heading{
+.delete-question-heading{
   font-weight:700;color:#31708F
 }
 
@@ -185,18 +185,18 @@ a{
   border-color: #d34615;
 }
 
-.bookmark-list{
+.question-list{
   table-layout: fixed;
   word-wrap: break-word;
 }
 
-.create-bookmark-icon{
+.create-question-icon{
   position:fixed;
   top:10%;
   right:3%;
 }
 
-.bookmark-list-container{
+.question-list-container{
   padding-top: 100px;
 }
 

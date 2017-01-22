@@ -34,13 +34,61 @@ var tagSchema = new mongoose.Schema({
 
 tagSchema.index({ tag: 1, created_by: 1}, { unique: true });
 
-var bookmarkSchema = new mongoose.Schema({
+
+
+
+
+// ================Q and A=============================
+var sortAnswers = function(a, b) {
+
+	if(a.votes === b.votes){
+		return b.updatedAt - a.updatedAt;
+	}
+	return b.votes - a.votes;
+}
+
+var answerSchema = new mongoose.Schema({
+	text: String,
+    created_by:String,
+	createdAt: {type: Date, default: Date.now},
+	updatedAt: {type: Date, default: Date.now},
+	votes: {type: Number, default:0}
+});
+
+answerSchema.method("update", function(updates, callback) {
+	Object.assign(this, updates, {updatedAt: new Date()});
+	this.parent().save(callback);
+});
+
+answerSchema.method("vote", function(vote, callback) {
+	if(vote === "up") {
+		this.votes += 1;
+	} else {
+		this.votes -= 1;
+	}
+	this.parent().save(callback);
+});
+
+
+
+var questionSchema = new mongoose.Schema({
+  title: String,
   link: {type: String},
   description: {type: String},
+  answers: [answerSchema],
   tags: String,
   created_at:{type:Date,default:Date.now},
-  created_by:String
+  created_by:String,
+
 });
+
+// questionSchema.pre("save", function(next){
+// 	this.answers.sort(sortAnswers);
+// 	next();
+// });
+
+// =============================================
+
 
 userSchema.pre('save', function(next) {
     var user = this;
@@ -68,4 +116,5 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 
 mongoose.model('User', userSchema,'users' );
 mongoose.model('Tag', tagSchema,'tags' );
-mongoose.model('Bookmark', bookmarkSchema,'bookmarks' );
+mongoose.model('Answer', answerSchema, 'answers' );
+mongoose.model('Question', questionSchema,'questions' );

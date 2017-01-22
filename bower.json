@@ -1,6 +1,6 @@
 {
   "name": "linko",
-  "description": "Dont lose your bookmarks again",
+  "description": "Dont lose your questions again",
   "main": "server.js",
   "authors": [
     "Mahtab Alam"

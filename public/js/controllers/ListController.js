@@ -1,17 +1,17 @@
 var appControllers=angular.module('app.controllers');
-appControllers.controller('ListController',function(Storage,BookmarkService,$scope,Helpers,$state,$modal,focus,toaster){
+appControllers.controller('ListController',function(Storage,QuestionService,$scope,Helpers,$state,$modal,focus,toaster){
 
-    $scope.showBookmarks=function(){
-      BookmarkService.getBookmarks().then(function(res){
-          $scope.bookmarks=res.data;
+    $scope.showQuestions=function(){
+      QuestionService.getQuestions().then(function(res){
+          $scope.questions=res.data;
       });
     }
 
-    $scope.showBookmarks();
+    $scope.showQuestions();
 
-    $scope.showCreateBookmarkModal=function(){
-      $scope.bookmarkModal=$modal({scope:$scope,show:true,controller:'BookmarkController',
-                                   templateUrl:'templates/create_bookmark_modal.html'
+    $scope.showCreateQuestionModal=function(){
+      $scope.questionModal=$modal({scope:$scope,show:true,controller:'QuestionController',
+                                   templateUrl:'templates/create_question_modal.html'
                                    });
       }
 
@@ -20,9 +20,9 @@ appControllers.controller('ListController',function(Storage,BookmarkService,$sco
                               placement:'center',templateUrl:'templates/create_tag_modal.html'});
       }
 
-    $scope.showDeleteBookmarkModal=function(bookmark){
-      $scope.bookmarkToDelete=bookmark;
-      $scope.deleteBookmarkModal=$modal({scope:$scope,show:true,placement:'center',controller:'BookmarkController',
-                                         templateUrl:'templates/delete_bookmark_modal.html'});
+    $scope.showDeleteQuestionModal=function(question){
+      $scope.questionToDelete=question;
+      $scope.deleteQuestionModal=$modal({scope:$scope,show:true,placement:'center',controller:'QuestionController',
+                                         templateUrl:'templates/delete_question_modal.html'});
      }
 });

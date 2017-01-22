@@ -2,13 +2,13 @@ var appService=angular.module('app.service',[]);
 
 appService.service('Helpers',function(){
      return {
-        'compareDate' :  function(bookmarkDate,search){
-                            var bookmark_date=new Date(bookmarkDate);
+        'compareDate' :  function(questionDate,search){
+                            var question_date=new Date(questionDate);
                             var search_criteria=new Date(search);
 
-                            if(bookmark_date.getDate() == search_criteria.getDate()
-                              && bookmark_date.getMonth() == search_criteria.getMonth()
-                              && bookmark_date.getFullYear() == search_criteria.getFullYear()){
+                            if(question_date.getDate() == search_criteria.getDate()
+                              && question_date.getMonth() == search_criteria.getMonth()
+                              && question_date.getFullYear() == search_criteria.getFullYear()){
                                 return true;
                               }
                               else{
@@ -96,25 +96,25 @@ appService.service('AuthService',function($window){
 });
 
 
-appService.service('BookmarkService',function($http,CONSTANT,Storage){
-   this.getBookmark = function(_id) {
-       return $http.get(CONSTANT.API_URL+'/bookmark/'+_id);
+appService.service('QuestionService',function($http,CONSTANT,Storage){
+   this.getQuestion = function(_id) {
+       return $http.get(CONSTANT.API_URL+'/question/'+_id);
      };
 
-   this.getBookmarks = function() {
-        return $http.get(CONSTANT.API_URL+'/bookmarks?created_by='+Storage.getUsername());
+   this.getQuestions = function() {
+        return $http.get(CONSTANT.API_URL+'/questions?created_by='+Storage.getUsername());
       };
 
-   this.createBookmark = function(bookmark) {
-        return $http.post(CONSTANT.API_URL+'/bookmark',bookmark,{headers:{"Content-Type":"application/json"}});
+   this.createQuestion = function(question) {
+        return $http.post(CONSTANT.API_URL+'/question',question,{headers:{"Content-Type":"application/json"}});
       };
 
-   this.deleteBookmark = function(_id){
-     return $http.delete(CONSTANT.API_URL+'/bookmark/'+_id);
+   this.deleteQuestion = function(_id){
+     return $http.delete(CONSTANT.API_URL+'/question/'+_id);
    };
 
-   this.updateBookmark = function(_id,bookmark){
-     return $http.put(CONSTANT.API_URL+'/bookmark/'+_id,bookmark,{headers:{"Content-Type":"application/json"}});
+   this.updateQuestion = function(_id,question){
+     return $http.put(CONSTANT.API_URL+'/question/'+_id,question,{headers:{"Content-Type":"application/json"}});
    }
 });
 

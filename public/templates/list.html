@@ -9,13 +9,14 @@
   <div class="row">
   <div class="col-md-12">
     <table ng-controller="SearchController" class="table table-hover table-striped table-bordered question-list">
-      <thead >
-        <tr >
+      <thead>
+        <tr>
           <th class="column-width">Question</th>
-          <th >Description</th>
-          <th >Link</th>
-          <th >Tags</th>
-          <th >Time
+          <th>Title</th>
+          <th>Description</th>
+          <th>Link</th>
+          <th>Tags</th>
+          <th>Time
              <span ng-click="changeOrder('created_at');" class="icon-arrow-up sorting-icon"></span>
              <span ng-click="changeOrder('-created_at');" class="icon-arrow-down sorting-icon"></span>
           </th>
@@ -34,7 +35,7 @@
            <th><input ng-disabled="true" class="form-control" type="text"/></th>
          </tr>
            <tr class="active " ng-repeat="bm in questions | filter:searchQuestions | orderBy:sortOrder.order">
-             <td><a target="_blank" href="{{bm.link}}">Open</a></td>
+             <td><a ui-sref="answer({id:bm._id})">Open</a></td>
              <td>{{bm.title}}</td>
              <td>{{bm.description}}</td>
              <td>{{bm.link}}</td>

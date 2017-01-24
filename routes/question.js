@@ -60,12 +60,18 @@ exports.updateQuestion = function(req, res) {
 
 exports.getQuestions = function(req, res) {
     Question.find({
+        "createdAt": req.query.createdAt
+    }, function(err, questions) {
+        res.status(200).send(questions);
+    });
+}
+exports.getMyQuestions = function(req, res) {
+    Question.find({
         "created_by": req.query.created_by
     }, function(err, questions) {
         res.status(200).send(questions);
     });
 }
-
 
 
 exports.deleteQuestion = function(req, res) {

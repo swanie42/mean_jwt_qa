@@ -98,7 +98,7 @@ appService.service('AuthService',function($window){
 
 appService.service('QuestionService',function($http,CONSTANT,Storage){
    this.getQuestion = function(_id) {
-       return $http.get(CONSTANT.API_URL+'/question/'+_id);
+       return $http.get(CONSTANT.API_URL+'/questions/'+_id);
      };
 
    this.getQuestions = function() {
@@ -106,16 +106,42 @@ appService.service('QuestionService',function($http,CONSTANT,Storage){
       };
 
    this.createQuestion = function(question) {
-        return $http.post(CONSTANT.API_URL+'/question',question,{headers:{"Content-Type":"application/json"}});
+        return $http.post(CONSTANT.API_URL+'/questions',question,{headers:{"Content-Type":"application/json"}});
       };
 
    this.deleteQuestion = function(_id){
-     return $http.delete(CONSTANT.API_URL+'/question/'+_id);
+     return $http.delete(CONSTANT.API_URL+'/questions/'+_id);
    };
 
    this.updateQuestion = function(_id,question){
-     return $http.put(CONSTANT.API_URL+'/question/'+_id,question,{headers:{"Content-Type":"application/json"}});
+     return $http.post(CONSTANT.API_URL+'/questions/'+_id,question,{headers:{"Content-Type":"application/json"}});
    }
+});
+
+appService.service('AnswerService',function($http,CONSTANT,Storage){
+   // this.getAnswer = function(_id, aID) {
+   //     return $http.get(CONSTANT.API_URL+'/questions/'+_id'/answer/'+_id);
+   //   };
+
+   // this.getAnswers = function() {
+   //      return $http.get(CONSTANT.API_URL+'/questions?created_by='+Storage.getUsername());
+   //    };
+   // this.getAnswers = function(_id) {
+   //     return $http.get(CONSTANT.API_URL+'/questions/'+_id'/answers';
+   //   };
+
+   this.createAnswer = function(_id,answer) {
+        return $http.post(CONSTANT.API_URL+'/questions/'+_id+'/answers',answer,{headers:{"Content-Type":"application/json"}});
+    };
+
+
+   // this.deleteQuestion = function(_id){
+   //   return $http.delete(CONSTANT.API_URL+'/question/'+_id);
+   // };
+   //
+   // this.updateQuestion = function(_id,question){
+   //   return $http.put(CONSTANT.API_URL+'/question/'+_id,question,{headers:{"Content-Type":"application/json"}});
+   // }
 });
 
 

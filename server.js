@@ -4,6 +4,7 @@ var bodyParser=require('body-parser');
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 var db=require('./models/db.js');
+var routes = require("./routes");
 
 var user=require('./routes/user.js');
 var tag=require('./routes/tag.js');
@@ -29,11 +30,17 @@ app.post('/login',user.login,function(req,res){
 app.post('/tag',tag.createTag);
 app.get('/tags',tag.getTags);
 
-app.get('/question/:id',question.getQuestion);
-app.get('/questions',question.getQuestions);
-app.post('/question',question.addQuestion);
-app.put('/question/:id',question.updateQuestion);
-app.delete('/question/:id',question.deleteQuestion);
+app.use('/questions', routes);
+
+
+// This was origionally here
+// app.get('/question/:id',question.getQuestion);
+// app.get('/questions',question.getQuestions);
+// app.get('/my_questions',question.getMyQuestions);
+//
+// app.post('/question',question.addQuestion);
+// app.put('/question/:id',question.updateQuestion);
+// app.delete('/question/:id',question.deleteQuestion);
 
 var port = process.env.PORT || 8080;
 var server=app.listen(port,function(req,res){

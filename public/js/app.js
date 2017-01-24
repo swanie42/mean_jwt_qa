@@ -47,5 +47,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/edit-question.html',
             controller:'EditController',
             authenticate: true
+        })
+        .state('answer', {
+            url: '/answer/:id',
+            templateUrl: 'templates/answer.html',
+            controller:'AnswerController',
+            authenticate: true
         });
 });

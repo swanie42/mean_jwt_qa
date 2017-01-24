@@ -1,5 +1,5 @@
 {
-  "name": "linko",
+  "name": "mean_jwt_qa",
   "version": "1.0.0",
   "description": "Dont lose your questions again",
   "main": "server.js",
